@@ -1,12 +1,7 @@
+import { GameType } from "../Constants/GameTypes";
 import { getWord } from "../Words/WordGenerator";
 import Game from "./Game";
 import VanillaGame from "./VanillaGame";
-
-// Enumerate supported game types
-export enum GameType {
-    VANILLA = 0,
-    EVIL
-}
 
 // Options used to select and create a new game
 export interface GameConfig {

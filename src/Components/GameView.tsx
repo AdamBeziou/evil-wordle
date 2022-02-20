@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
+import { GameType } from "../Constants/GameTypes"
 import Game from "../Games/Game"
-import createGame, { GameConfig, GameType } from "../Games/GameFactory"
+import createGame, { GameConfig } from "../Games/GameFactory"
 
 const DEFAULT_WORD_LENGTH = 5
 
