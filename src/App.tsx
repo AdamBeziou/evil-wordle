@@ -1,32 +1,36 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import words from "./words.js";
-import Guess from "./Guess";
-import { getWord } from './Util'
+import words from "./Words/WordList.js";
+import Guess from "./Components/Guess";
+import AppRouter from "./AppRouter";
 
 const MAX_GUESSES = 5;
 const WORD_LENGTH = 5;
-let currentGuessIndex = 0;
 
-const word = getWord(WORD_LENGTH, words);
-const game = new Game(MAX_GUESSES, word);
+/*
+What does the game need to have?
+- A correct word
+- A current guess
+- A record of past guesses
 
-document.addEventListener("keydown", game.keyPressed);
+What operations are there in the game?
+- Making a guess
+  - Need to figure out what letters are in place/present, but out of place
+  - Need to record the guess in a record of past guesses
+
+What is configurable?
+- Length of the correct word
+- Number of possible guesses
+- Size/words in a word pool
+*/
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>WORDLE CLONE</p>
-        {game.guesses.map((guess) => (
-          <Guess
-            guess={guess}
-            correctWord={game.correctWord}
-            showComparison={false}
-          />
-        ))}
-      </header>
+      <nav className="app-header">
+        <a>Wordle</a>
+        <a>Evil Wordle</a>
+      </nav>
+      <AppRouter />
     </div>
   );
 }

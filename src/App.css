@@ -12,23 +12,37 @@
   pointer-events: none;
 }
 
-.App-header {
-  background-color: white;
-  min-height: 100vh;
+.app-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+  border-bottom: 1px lightgray solid;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+  padding: 5px
 }
 
 .letter {
+  box-sizing: border-box;
   border: 1px var(--blank-space-border) solid;
   height: 1em;
   width: 1em;
   padding: 0.1em;
   margin: 0.1em;
+  line-height: 1em;
+}
+
+.letter.in-position {
+  border: 0px;
+  background-color: rgb(106, 170, 100);
+  color: white;
+}
+
+.letter.out-of-position {
+  border: 0px;
+  background-color: rgb(201, 180, 88);
+  color: white;
 }
 
 .letter-row {
