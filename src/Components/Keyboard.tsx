@@ -1,46 +1,19 @@
 import React from 'react'
-import { convertSetToUppercase } from '../Util/Util'
+import { LetterState } from '../Constants/LetterStates'
 
 const Keyboard = ({
     layout,
-    notPresentKeys,
-    outOfPositionKeys,
-    inPositionKeys,
+    previouslyGuessed,
     keyPressed
 }: {
     layout: string[][],
-    notPresentKeys: Set<string> | undefined,
-    outOfPositionKeys: Set<string> | undefined,
-    inPositionKeys: Set<string> | undefined,
+    previouslyGuessed: Map<string, LetterState> | undefined,
     keyPressed: (key: string) => void
 }) => {
-    const notPresentKeysLowercase = convertSetToUppercase(notPresentKeys)
-    const outOfPositionKeysLowercase = convertSetToUppercase(outOfPositionKeys)
-    const inPositionKeysLowercase = convertSetToUppercase(inPositionKeys)
-
-    console.log(notPresentKeysLowercase)
-    console.log(outOfPositionKeysLowercase)
-    console.log(inPositionKeysLowercase)
-
-    const renderRow = (row: string[]) => row.map(
-        letter => {
-            let className = "keyboard-letter"
-            if (notPresentKeysLowercase.has(letter)) {
-                className += " not-present"
-            } else if (outOfPositionKeysLowercase.has(letter)) {
-                className += " out-of-position"
-            } else if (inPositionKeysLowercase.has(letter)) {
-                className += " in-position"
-            } else {
-                className += " filled-letter"
-            }
-            return (
-                <button onClick={() => keyPressed(letter)} className={className}>
-                    {letter}
-                </button>
-            )
-        }
-    )
+    const previouslyGuessedUppercase = new Map()
+    previouslyGuessed?.forEach((value, key) => {
+        previouslyGuessedUppercase.set(key.toUpperCase(), value)
+    })
 
     return (
         <div className="keyboard">
@@ -51,7 +24,26 @@ const Keyboard = ({
                             ENTER
                         </button>
                     }
-                    {renderRow(row)}
+                    {row.map(
+                        letter => {
+                            let className = "keyboard-letter"
+                            const state = previouslyGuessed?.get(letter)
+                            if (state === LetterState.NOT_PRESENT) {
+                                className += " not-present"
+                            } else if (state === LetterState.OUT_OF_POSITION) {
+                                className += " out-of-position"
+                            } else if (state === LetterState.IN_POSITION) {
+                                className += " in-position"
+                            } else {
+                                className += " filled-letter"
+                            }
+                            return (
+                                <button onClick={() => keyPressed(letter)} className={className}>
+                                    {letter}
+                                </button>
+                            )
+                        }
+                    )}
                     {i === layout.length - 1 &&
                         <button className="big-keyboard-letter filled-letter" onClick={() => keyPressed("Backspace")}>
                             BACK
