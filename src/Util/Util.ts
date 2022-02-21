@@ -4,9 +4,10 @@ export const getRandomInt = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export const getWord = (wordLength: number, wordList: string[]) => {
-    const filteredWordList = wordList.filter(
-      (word) => word.length === wordLength
-    );
-    return filteredWordList[getRandomInt(0, filteredWordList.length - 1)];
-};
+export const convertSetToUppercase = (list: Set<string> | undefined) => {
+  const newSet = new Set<string>()
+  if (list) {
+    list.forEach(l => newSet.add(l.toLocaleUpperCase()))
+  }
+  return newSet
+}

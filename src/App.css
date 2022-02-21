@@ -1,8 +1,3 @@
-:root {
-  --blank-space-border: rgb(105, 105, 105);
-  --filled-space-border: black;
-}
-
 .App {
   text-align: center;
   background-color: var(--body-background-color);
@@ -33,42 +28,52 @@
   padding: 0px 5px 5px 0px;
 }
 
-.letter {
-  box-sizing: border-box;
-  border: 1px var(--blank-space-border) solid;
-  height: 1em;
-  width: 1em;
-  padding: 0.1em;
-  margin: 0.1em;
-  line-height: 1em;
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
 }
 
-.letter.in-position {
+.keyboard-letter, .big-keyboard-letter {
+  border-radius: 5%;
+  font-size: 3vmin;
+  padding: 0.5em;
+  margin: 0.1em;
+  height: 3em;
+  width: 3em;
   border: 0px;
+  background-color: lightgray;
+}
+
+.keyboard-letter:hover, .big-keyboard-letter:hover {
+  cursor: pointer;
+}
+
+.big-keyboard-letter {
+  width: 4em;
+}
+
+.blank-space {
+  border: 1px darkgray solid;
+}
+
+.letter-row {
+  display: flex;
+}
+
+/* Key state classes */
+.in-position {
   background-color: rgb(106, 170, 100);
   color: white;
 }
 
-.letter.out-of-position {
-  border: 0px;
+.out-of-position {
   background-color: rgb(201, 180, 88);
   color: white;
 }
 
-.letter-row {
-  font-size: 7vh;
-  display: flex;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.not-present {
+  background-color: darkgray;
+  color: white;
 }

@@ -2,8 +2,8 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import GameView from "./Components/GameView";
 import Home from "./Components/Home";
-import { GameType } from "./Games/GameFactory";
-import { BASE_URL, BASIC_GAME, EVIL_GAME } from "./Routes";
+import { GameType } from "./Constants/GameTypes";
+import { BASE_URL, BASIC_GAME, EVIL_GAME } from "./Constants/Routes";
 
 function App() {
   return (
