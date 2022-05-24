@@ -5,6 +5,7 @@ import GameView from "./Components/GameView";
 import { QWERTY_LAYOUT } from "./Constants/KeyboardLayouts"
 import Keyboard from "./Components/Keyboard"
 import { LetterState } from "./Constants/LetterStates"
+import LetterRow from "./Components/LetterRow";
 
 function App() {
   const [prevouslyGuessed, setPreviouslyGuessed] = useState(new Map<string, LetterState>())
@@ -29,7 +30,7 @@ function App() {
         <header className="app-header">
         Evil Wordle
         </header>
-        <GameView />
+        <LetterRow length={5} letters={['T', 'E', 'S', 'T']} letterStates={[]} />
         <Keyboard
           layout={QWERTY_LAYOUT}
           previouslyGuessed={prevouslyGuessed}
