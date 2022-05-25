@@ -1,18 +1,17 @@
 import React from 'react';
-import { LetterState } from '../Constants/LetterStates';
+import { Letter } from './Letter';
 
 interface LetterRowProps {
     length: number;
-    letters: string[];
-    letterStates: LetterState[];
+    letters: Letter[] | undefined;
 }
 
-const LetterRow = ({length, letters, letterStates}: LetterRowProps) => {
+const LetterRow = ({length, letters}: LetterRowProps) => {
     const letterComponents = []
     for (let i = 0; i < length; i++) {
-        if (i < letters.length) {
+        if (letters != undefined && i < letters.length) {
             letterComponents.push(
-                <span>{letters[i]}</span>
+                <span>{letters[i].key}</span>
             )
         } else {
             letterComponents.push(
