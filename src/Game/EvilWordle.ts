@@ -25,7 +25,7 @@ export class EvilWordle {
         this.guesses = []
 
         this.validWords = getWordList(wordLength, wordLength)
-        this.possibleWords = [...this.validWords] // Deep copy to avoid modifying valid list when pruning possibilities
+        this.possibleWords = this.validWords
     }
 
     // Choose a state for each letter of the guess that maximizes the number of possible correct guesses
