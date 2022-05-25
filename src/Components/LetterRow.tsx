@@ -1,5 +1,5 @@
 import React from 'react';
-import { Letter } from './Letter';
+import { Letter } from '../Game/EvilWordle';
 
 interface LetterRowProps {
     length: number;
@@ -9,16 +9,12 @@ interface LetterRowProps {
 const LetterRow = ({length, letters}: LetterRowProps) => {
     const letterComponents = []
     for (let i = 0; i < length; i++) {
-        if (letters != undefined && i < letters.length) {
-            letterComponents.push(
-                <span>{letters[i].key}</span>
-            )
-        } else {
-            letterComponents.push(
-                <span>_</span>
-            )
-        }
 
+        letterComponents.push(
+            <span>
+                {letters != undefined && i < letters.length ? letters[i].key : undefined}
+            </span>
+        )
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Letter } from "./Letter";
+import { Letter } from "../Game/EvilWordle";
 import LetterRow from "./LetterRow";
 
 interface GuessListProps {
