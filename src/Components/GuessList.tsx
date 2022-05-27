@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { Letter } from "../Game/EvilWordle";
+import { Guess, Letter } from "../Game/EvilWordle";
 import LetterRow from "./LetterRow";
 
 interface GuessListProps {
     numberOfGuesses: number;
     guessLength: number;
-    guesses: Letter[][];
+    guesses: Guess[];
 }
 
 const GuessList = ({numberOfGuesses, guessLength, guesses}: GuessListProps) => {
@@ -14,7 +14,7 @@ const GuessList = ({numberOfGuesses, guessLength, guesses}: GuessListProps) => {
         guessRows.push(
             <LetterRow
                 length={guessLength}
-                letters={i < guesses.length ? guesses[i] : undefined}
+                letters={i < guesses.length ? guesses[i].letters : undefined}
             />
         )
     }
