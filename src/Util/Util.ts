@@ -12,6 +12,17 @@ export const convertSetToUppercase = (list: Set<string> | undefined) => {
   return newSet
 }
 
+export const shuffleList = (list: any[]) => {
+  let shuffledList = [...list]
+  for (let i = shuffledList.length - 1; i >= 1; i--) {
+    const j = getRandomInt(0, i)
+    const temp = shuffledList[j]
+    shuffledList[j] = shuffledList[i]
+    shuffledList[i] = temp
+  }
+  return shuffledList
+}
+
 export const countLetter = (str: string, letter: string) => {
   let count = 0
   for (let i = 0; i < str.length; i++) {
