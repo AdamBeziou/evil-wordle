@@ -1,5 +1,6 @@
 import React from 'react';
 import { Letter } from '../Game/EvilWordle';
+import { LetterState, getBackgroundColorForLetter } from '../Constants/LetterStates';
 
 interface LetterRowProps {
     length: number;
@@ -9,10 +10,12 @@ interface LetterRowProps {
 const LetterRow = ({length, letters}: LetterRowProps) => {
     const letterComponents = []
     for (let i = 0; i < length; i++) {
-
+        const letter = letters?.length ? letters[i] : undefined
         letterComponents.push(
-            <span>
-                {letters != undefined && i < letters.length ? letters[i].key : undefined}
+            <span
+                className="letter"
+                style={{ backgroundColor: getBackgroundColorForLetter(letter?.state) }}>
+                {letter && letter.key}
             </span>
         )
     }
