@@ -1,3 +1,4 @@
+import { createModuleResolutionCache } from "typescript";
 import { LetterState } from "../Constants/LetterStates";
 
 export interface Letter {
@@ -18,49 +19,89 @@ export class EvilWordle {
         this.possibleWords = wordList
     }
 
-    chooseCharacterState(character: string, position: number, wordList: string[]): [LetterState, string[]] {
-        // Set of all words that contain the letter in the proper
-        // position is a subset of all words that just contain the letter
-        let inPosition = true
-        let presentSet: string[] = []
-        let notPresentSet = wordList.filter(possibleWord => {
-            if (possibleWord.indexOf(character) === -1) {
-                    return true
-            } else {
-                inPosition = inPosition && possibleWord[position] === character
-                presentSet.push(possibleWord)
+    bf(state: LetterState[], word: string[]): string[] {
+        let potential = this.possibleWords.filter(w => {
+            if (w === word.join("")) {
                 return false
             }
+            let m = new Map<string, number>();
+            let c = new Map<string, number>();
+            for (let i = 0; i < w.length; i++) {
+                let j = m.get(w[i])
+                if (j) {
+                    m.set(w[i], j + 1)
+                } else {
+                    m.set(w[i], 1)
+                }
+            }
+            for (let i = 0; i < word.length; i++) {
+                if (state[i] !== LetterState.NOT_PRESENT) {
+                    let j = c.get(w[i])
+                    if (j) {
+                        c.set(word[i], j + 1)
+                    } else {
+                        c.set(word[i], 1)
+                    }
+                }
+            }
+            for (let i = 0; i < state.length; i++) {
+                if ((m.get(word[i]) || 0) < (c.get(word[i]) || 0)) {
+                    return false
+                }
+                if (state[i] === LetterState.NOT_PRESENT && (m.get(word[i]) || 0) !== (c.get(word[i]) || 0)) {
+                    return false
+                }
+                if (state[i] === LetterState.IN_POSITION && w[i] !== word[i]) {
+                    return false
+                }
+                if (state[i] === LetterState.OUT_OF_POSITION && w[i] === word[i]) {
+                    return false
+                }
+            }
+            return true
         })
-        if (presentSet.length > notPresentSet.length) {
-            return [inPosition ? LetterState.IN_POSITION : LetterState.OUT_OF_POSITION, presentSet]
+        return potential
+    }
+
+    chooseLetterStatesBruteForce(word: string[], state: LetterState[]): [LetterState[], string[]] {
+        let max: string[] = [];
+        let maxState: LetterState[] = [];
+        for (let j = LetterState.NOT_PRESENT; j <= LetterState.IN_POSITION; j++) {
+            let newState = [...state, j]
+            let set: string[] = []
+            if (word.length === newState.length) {
+                set = this.bf(newState, word)
+            } else {
+                let [rnewState, rset] = this.chooseLetterStatesBruteForce(word, newState)
+                set = rset
+                newState = rnewState
+            }
+            if (set.length > max.length) {
+                max = set
+                maxState = newState
+            }
         }
-        return [LetterState.NOT_PRESENT, notPresentSet]
+        return [maxState, max];
     }
 
     // Choose a state for each letter of the guess that maximizes the number of possible correct guesses
     chooseLetterStates(word: string[]): [LetterState[], string[]] {
-        if (word.length === 1) {
-            const [state, wordList] = this.chooseCharacterState(word[0], 0, this.possibleWords)
-            return [[state], wordList]
+        let [state, list] = this.chooseLetterStatesBruteForce(word, [])
+        if (list.length === 0) {
+            let s = []
+            for (let i = 0; i < word.length; i++) {
+                s.push(LetterState.IN_POSITION)
+            }
+            state = s
+            list = [word.join("")]
         }
-        const [recursiveStates, recursiveWordList] = this.chooseLetterStates(word.slice(0, word.length - 1))
-        const [state, wordList] = this.chooseCharacterState(word[word.length - 1], word.length - 1, recursiveWordList)
-        recursiveStates.push(state)
-        return [recursiveStates, wordList]
+        return [state, list];
     }
 
     // Returns guess results and a boolean indicating whether the guess is valid
-    makeGuess(guess: string[]): [Guess | null, boolean, boolean] {
+    makeGuess(guess: string[]): [Guess | null, boolean] {
         // Ensure that all guesses are lowercase
         guess = guess.map(letter => letter.toLowerCase())
-        let guessStr = guess.join("")
-        console.log(guessStr)
-
-        // Guess must be present in the list of possible words
-        if (!this.validWords.some(word => word === guessStr)) {
-            return [null, false, false]
-        }
 
         const [states, possibleWords] = this.chooseLetterStates(guess)
         this.possibleWords = possibleWords
@@ -69,6 +110,6 @@ export class EvilWordle {
             letters: guess.map((l, i) => ({ key: l, state: states[i]}))
         }
         const correctGuess = states.every(state => state === LetterState.IN_POSITION)
-        return [guessObj, true, correctGuess]
+        return [guessObj, correctGuess]
     }
 }
