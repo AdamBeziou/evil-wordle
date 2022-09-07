@@ -40,7 +40,7 @@ export const getBorderColorForLetter = (state: LetterState | undefined) => {
 }
 
 export const getTextColorForLetter = (state: LetterState | undefined) => {
-    if (state == LetterState.NOT_GUESSED) {
+    if (!state || state == LetterState.NOT_GUESSED) {
         return '#000000'
     }
     return '#ffffff'

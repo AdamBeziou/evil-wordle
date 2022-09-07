@@ -1,27 +1,31 @@
 import React, { useState } from "react"
 import "./App.css";
-import { QWERTY_LAYOUT } from "./Constants/KeyboardLayouts"
+import { BACK_KEY, ENTER_KEY, QWERTY_LAYOUT } from "./Constants/KeyboardLayouts"
 import Keyboard from "./Components/Keyboard/Keyboard"
 import { LetterState } from "./Constants/LetterStates"
 import GuessList from "./Components/Guesses/GuessList";
+import { Guess } from "./Game/EvilWordle";
+
+const MAX_NUMBER_OF_GUESSES = 5
+const GUESS_LENGTH = 5
 
 function App() {
-  const [prevouslyGuessed, setPreviouslyGuessed] = useState(new Map<string, LetterState>())
+  const [guesses, setGuesses] = useState(new Array<Guess>())
+  const [currentGuess, setCurrentGuess] = useState("")
 
-    const keyPressed = (key: string) => {
-        /*switch(key) {
-            case "Backspace":
-                setCurrentGuess(currentGuess.slice(0, -1))
-                break
-            case "Enter":
-                makeGuess()
-                break
-            default:
-                if (currentGuess.length < DEFAULT_WORD_LENGTH) {
-                    setCurrentGuess(currentGuess + key)
-                }
-        }*/
-    }
+  const keyPressed = (key: string) => {
+    switch(key) {
+        case BACK_KEY:
+            setCurrentGuess(currentGuess.slice(0, -1))
+            break
+        case ENTER_KEY:
+            break
+        default:
+            if (currentGuess.length < GUESS_LENGTH) {
+                setCurrentGuess(currentGuess + key)
+            }
+        }
+  }
 
   return (
     <div className="App">
@@ -29,13 +33,14 @@ function App() {
           Evil Wordle
         </header>
         <GuessList
-          numberOfGuesses={5}
-          guessLength={5}
-          guesses={[]}
+          numberOfGuesses={MAX_NUMBER_OF_GUESSES}
+          guessLength={GUESS_LENGTH}
+          guesses={guesses}
+          currentGuess={currentGuess}
         />
         <Keyboard
           layout={QWERTY_LAYOUT}
-          previouslyGuessed={prevouslyGuessed}
+          previousGuesses={guesses}
           keyPressed={keyPressed}
         />
     </div>

@@ -12,6 +12,7 @@
 .guess-list-frame {
     display: flex;
     justify-content: center;
+    margin: 1em 0 1em 0;
 }
 
 .guess-list {
@@ -30,4 +31,7 @@
     width: var(--letter-width);
     margin: var(--letter-margin);
     border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

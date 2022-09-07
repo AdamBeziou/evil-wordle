@@ -1,18 +1,26 @@
 import './Keyboard.css'
 import { BACK_KEY, ENTER_KEY } from '../../Constants/KeyboardLayouts'
-import { getBackgroundColorForLetter, LetterState } from '../../Constants/LetterStates'
+import { getBackgroundColorForLetter, getBorderColorForLetter, getTextColorForLetter, LetterState } from '../../Constants/LetterStates'
+import { Guess } from '../../Game/EvilWordle'
 
 interface KeyboardProps {
     layout: string[][],
-    previouslyGuessed: Map<string, LetterState> | undefined,
+    previousGuesses: Array<Guess> | undefined,
     keyPressed: (key: string) => void
 }
 
 const Keyboard = ({
     layout,
-    previouslyGuessed,
+    previousGuesses,
     keyPressed
 }: KeyboardProps) => {
+    const letterStates = new Map<string, LetterState>()
+    previousGuesses?.forEach(guess => {
+        guess.letters.forEach(letter => {
+            letterStates.set(letter.key, letter.state)
+        })
+    })
+
     return (
         <div className="keyboard">
             {layout.map((row, i) =>
@@ -32,12 +40,16 @@ const Keyboard = ({
                                     </button>
                                 )
                             }
-                            const state = previouslyGuessed?.get(letter.toUpperCase())
+                            const state = letterStates?.get(letter.toUpperCase())
                             return (
                                 <button
                                     onClick={() => keyPressed(letter)}
                                     className="keyboard-letter"
-                                    style={{ backgroundColor: getBackgroundColorForLetter(state) }}
+                                    style={state && {
+                                        backgroundColor: getBackgroundColorForLetter(state),
+                                        borderColor: getBorderColorForLetter(state),
+                                        color: getTextColorForLetter(state),
+                                    }}
                                 >
                                     {letter}
                                 </button>

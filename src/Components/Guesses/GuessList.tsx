@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./GuessList.css";
 import { Guess, Letter } from "../../Game/EvilWordle";
-import { getBackgroundColorForLetter, getBorderColorForLetter, getTextColorForLetter } from "../../Constants/LetterStates";
+import { getBackgroundColorForLetter, getBorderColorForLetter, getTextColorForLetter, LetterState } from "../../Constants/LetterStates";
 
 const BORDER_THICKNESS = '1px'
 const LETTER_HEIGHT = '1em'
@@ -39,16 +39,27 @@ const GuessRow = ({length, letters}: LetterRowProps) => {
 interface GuessListProps {
     numberOfGuesses: number;
     guessLength: number;
-    guesses: Guess[];
+    guesses: Array<Guess>;
+    currentGuess: string;
 }
 
-const GuessList = ({numberOfGuesses, guessLength, guesses}: GuessListProps) => {
+const GuessList = ({numberOfGuesses, guessLength, guesses, currentGuess}: GuessListProps) => {
     const guessRows = []
     for (let i = 0; i < numberOfGuesses; i++) {
+        let letters = undefined
+        if (i < guesses.length) {
+            letters = guesses[i].letters
+        } else if (i === guesses.length) {
+            letters = currentGuess?.split('').map(
+                letter => {
+                    return {key: letter, state: LetterState.NOT_GUESSED}
+                }
+            )
+        }
         guessRows.push(
             <GuessRow
                 length={guessLength}
-                letters={i < guesses.length ? guesses[i].letters : undefined}
+                letters={letters}
             />
         )
     }
