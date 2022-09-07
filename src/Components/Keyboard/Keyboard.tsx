@@ -1,6 +1,6 @@
-import React from 'react'
-import { BACK_KEY, ENTER_KEY } from '../Constants/KeyboardLayouts'
-import { getBackgroundColorForLetter, LetterState } from '../Constants/LetterStates'
+import './Keyboard.css'
+import { BACK_KEY, ENTER_KEY } from '../../Constants/KeyboardLayouts'
+import { getBackgroundColorForLetter, LetterState } from '../../Constants/LetterStates'
 
 interface KeyboardProps {
     layout: string[][],
@@ -16,7 +16,7 @@ const Keyboard = ({
     return (
         <div className="keyboard">
             {layout.map((row, i) =>
-                <div className="letter-row">
+                <div className="keyboard-letter-row">
                     {row.map(letter => {
                             if (letter === BACK_KEY) {
                                 return (

@@ -1,0 +1,27 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard-letter, .big-keyboard-letter {
+  border-radius: 5%;
+  font-size: 3vmin;
+  padding: 0.5em;
+  margin: 0.1em;
+  height: 3em;
+  width: 3em;
+  border: 1px solid grey;
+}
+
+.keyboard-letter:hover, .big-keyboard-letter:hover {
+  cursor: pointer;
+}
+
+.big-keyboard-letter {
+  width: 5em;
+}
+
+.keyboard-letter-row {
+    display: flex;
+  }

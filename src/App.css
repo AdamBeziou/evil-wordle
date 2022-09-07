@@ -14,7 +14,8 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 3vmin);
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid black;
+  /* box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2); */
   padding: 5px
 }
 
@@ -26,33 +27,4 @@
 
 .app-navigation > a {
   padding: 0px 5px 5px 0px;
-}
-
-.keyboard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 2em;
-}
-
-.keyboard-letter, .big-keyboard-letter {
-  border-radius: 5%;
-  font-size: 3vmin;
-  padding: 0.5em;
-  margin: 0.1em;
-  height: 3em;
-  width: 3em;
-  border: 1px solid grey;
-}
-
-.keyboard-letter:hover, .big-keyboard-letter:hover {
-  cursor: pointer;
-}
-
-.big-keyboard-letter {
-  width: 5em;
-}
-
-.letter-row {
-  display: flex;
 }

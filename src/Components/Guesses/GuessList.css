@@ -1,0 +1,32 @@
+:root {
+    --letter-width: 2em;
+    --letter-height: 2em;
+    --border-thickness: 1px;
+    --letter-margin: 0.1em;
+
+    --letter-boundary-thickness: 2 * (var(--border-thickness) + var(--letter-margin));
+    --row-thickness: calc(var(--letter-height) + var(--letter-boundary-thickness));
+    --column-thickness: calc(var(--letter-width) + var(--letter-boundary-thickness));
+}
+
+.guess-list-frame {
+    display: flex;
+    justify-content: center;
+}
+
+.guess-list {
+    height: calc(var(--row-height) * var(--number-of-rows));
+    width: calc(var(--column-thickness) * var(--width-of-rows));
+}
+
+.guess-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.letter {
+    border: var(--border-thickness) solid black;
+    height: var(--letter-height);
+    width: var(--letter-width);
+    margin: var(--letter-margin);
+}
