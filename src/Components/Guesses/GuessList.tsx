@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./GuessList.css";
 import { Guess, Letter } from "../../Game/EvilWordle";
-import { getBackgroundColorForLetter } from "../../Constants/LetterStates";
+import { getBackgroundColorForLetter, getBorderColorForLetter, getTextColorForLetter } from "../../Constants/LetterStates";
 
 const BORDER_THICKNESS = '1px'
 const LETTER_HEIGHT = '1em'
@@ -19,7 +19,11 @@ const GuessRow = ({length, letters}: LetterRowProps) => {
         letterComponents.push(
             <span
                 className="letter"
-                style={{ backgroundColor: getBackgroundColorForLetter(letter?.state) }}>
+                style={{
+                    backgroundColor: getBackgroundColorForLetter(letter?.state),
+                    borderColor: getBorderColorForLetter(letter?.state),
+                    color: getTextColorForLetter(letter?.state),
+                }}>
                 {letter && letter.key}
             </span>
         )
@@ -49,7 +53,11 @@ const GuessList = ({numberOfGuesses, guessLength, guesses}: GuessListProps) => {
         )
     }
 
-    const style = { '--number-of-rows': numberOfGuesses, '--width-of-rows': guessLength } as React.CSSProperties
+    // Pass in list length and width to adjust height/width to correct size
+    const style = {
+        '--number-of-rows': numberOfGuesses,
+        '--width-of-rows': guessLength
+    } as React.CSSProperties
 
     return (
         <div className="guess-list-frame">

@@ -5,23 +5,43 @@ export enum LetterState {
     IN_POSITION, // Letter has been guessed and was in position
 }
 
-export const OUT_OF_POSITION_COLOR = '#ffff00'
-export const IN_POSITION_COLOR = '#00ff00'
-export const NOT_GUESSED_COLOR = '#ffffff'
-export const NOT_PRESENT_COLOR = '#aaaaaa'
+
+const LetterStateToColors = {
+    [LetterState.NOT_GUESSED]: {
+        borderColor: '#000000',
+        backgroundColor: '#ffffff',
+    },
+    [LetterState.NOT_PRESENT]: {
+        borderColor: '#aaaaaa',
+        backgroundColor: '#aaaaaa',
+    },
+    [LetterState.OUT_OF_POSITION]: {
+        borderColor: '#ffff00',
+        backgroundColor: '#ffff00',
+    },
+    [LetterState.IN_POSITION]: {
+        borderColor: '#00ff00',
+        backgroundColor: '#00ff00',
+    },
+}
 
 export const getBackgroundColorForLetter = (state: LetterState | undefined) => {
     if (!state) {
-        return NOT_GUESSED_COLOR;
+        return '#ffffff';
     }
-    switch (state) {
-        case LetterState.NOT_PRESENT:
-            return NOT_PRESENT_COLOR
-        case LetterState.OUT_OF_POSITION:
-            return OUT_OF_POSITION_COLOR
-        case LetterState.IN_POSITION:
-            return IN_POSITION_COLOR
-        default:
-            return NOT_GUESSED_COLOR
+    return LetterStateToColors[state].backgroundColor
+}
+
+export const getBorderColorForLetter = (state: LetterState | undefined) => {
+    if (!state) {
+        return '#bdbdbd';
     }
+    return LetterStateToColors[state].borderColor
+}
+
+export const getTextColorForLetter = (state: LetterState | undefined) => {
+    if (state == LetterState.NOT_GUESSED) {
+        return '#000000'
+    }
+    return '#ffffff'
 }

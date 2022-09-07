@@ -29,4 +29,5 @@
     height: var(--letter-height);
     width: var(--letter-width);
     margin: var(--letter-margin);
+    border-radius: 5%;
 }
