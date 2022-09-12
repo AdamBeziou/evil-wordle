@@ -1,5 +1,5 @@
-export const BACK_KEY = 'BACK'
-export const ENTER_KEY = 'SUBMIT'
+export const BACK_KEY = '⌫'
+export const ENTER_KEY = '↩'
 
 export const QWERTY_LAYOUT = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],

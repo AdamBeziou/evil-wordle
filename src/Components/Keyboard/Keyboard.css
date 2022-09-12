@@ -6,14 +6,12 @@
 
 .keyboard-letter, .big-keyboard-letter {
   border-radius: 5%;
-  font-size: 3vmin;
   padding: 0.5em;
   margin: 0.1em;
   height: 3em;
-  width: 3em;
-  border: 1px solid grey;
-  background: grey;
-  color: white;
+  border: 1px solid lightgrey;
+  background: lightgrey;
+  color: black;
 }
 
 .keyboard-letter:hover, .big-keyboard-letter:hover {
@@ -21,7 +19,11 @@
 }
 
 .big-keyboard-letter {
-  width: 5em;
+  width: 2.5em;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  line-height: 1.8em;
 }
 
 .keyboard-letter-row {

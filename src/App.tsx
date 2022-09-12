@@ -2,11 +2,10 @@ import React, { useState } from "react"
 import "./App.css";
 import { BACK_KEY, ENTER_KEY, QWERTY_LAYOUT } from "./Constants/KeyboardLayouts"
 import Keyboard from "./Components/Keyboard/Keyboard"
-import { LetterState } from "./Constants/LetterStates"
 import GuessList from "./Components/Guesses/GuessList";
 import { Guess } from "./Game/EvilWordle";
 
-const MAX_NUMBER_OF_GUESSES = 5
+const MAX_NUMBER_OF_GUESSES = 6
 const GUESS_LENGTH = 5
 
 function App() {

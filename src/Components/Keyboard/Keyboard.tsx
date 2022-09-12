@@ -26,25 +26,15 @@ const Keyboard = ({
             {layout.map((row, i) =>
                 <div className="keyboard-letter-row">
                     {row.map(letter => {
-                            if (letter === BACK_KEY) {
-                                return (
-                                    <button className="big-keyboard-letter filled-letter" onClick={() => keyPressed(letter)}>
-                                        BACK
-                                    </button>
-                                )
-                            }
-                            if (letter === ENTER_KEY) {
-                                return (
-                                    <button className="big-keyboard-letter filled-letter" onClick={() => keyPressed(letter)}>
-                                        ENTER
-                                    </button>
-                                )
-                            }
                             const state = letterStates?.get(letter.toUpperCase())
                             return (
                                 <button
                                     onClick={() => keyPressed(letter)}
-                                    className="keyboard-letter"
+                                    className={
+                                        letter === ENTER_KEY || letter === BACK_KEY ?
+                                        "big-keyboard-letter filled-letter" :
+                                        "keyboard-letter"
+                                    }
                                     style={state && {
                                         backgroundColor: getBackgroundColorForLetter(state),
                                         borderColor: getBorderColorForLetter(state),
